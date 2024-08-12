@@ -1,7 +1,7 @@
 # Concrnt CLI
 A command line interface client for the [concrnt](https://github.com/concrnt) social media platform. Written in Go. This is a very WIP project.
 
-![demo](./concrnt-cli.gif)
+<img src="./concrnt-cli.gif" width="400">
 
 # Running
 Go is needed to run this program. You can download it [here](https://golang.org/dl/) or install it via your package manager.
