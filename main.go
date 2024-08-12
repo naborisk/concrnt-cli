@@ -65,7 +65,19 @@ func (m model) Update(message tea.Msg) (tea.Model, tea.Cmd) {
 
 	case tea.WindowSizeMsg:
 		m.windowSize = WindowSize{msg.Width, msg.Height}
-		m.list.SetSize(msg.Width, msg.Height-5)
+
+		var width, height int
+
+		width = m.windowSize.width
+
+		if m.help.ShowAll {
+			// 3 is the height of draft 4 is the height of help 1 is bottom padding
+			height = m.windowSize.height - 3 - 4 - 1
+		} else {
+			height = m.windowSize.height - 3 - 1 - 1
+		}
+
+		m.list.SetSize(width, height)
 
 	case tea.KeyMsg:
 		if m.textinput.Focused() {
@@ -93,6 +105,13 @@ func (m model) Update(message tea.Msg) (tea.Model, tea.Cmd) {
 				m.list.CursorDown()
 			case key.Matches(msg, m.keys.Help):
 				m.help.ShowAll = !m.help.ShowAll
+
+				if m.help.ShowAll {
+					// 3 is the height of draft 4 is the height of help 1 is bottom padding
+					m.list.SetSize(m.windowSize.width, m.windowSize.height-3-4-1)
+				} else {
+					m.list.SetSize(m.windowSize.height, m.windowSize.height-3-1-1)
+				}
 			}
 		}
 
@@ -114,8 +133,6 @@ func (m model) Update(message tea.Msg) (tea.Model, tea.Cmd) {
 func (m model) View() string {
 	helpView := m.help.View(m.keys)
 
-	// height := 0
-
 	return " " +
 		// strconv.Itoa(m.windowSize.width) + "x" + strconv.Itoa(m.windowSize.height) +
 		"\n" +
@@ -125,5 +142,5 @@ func (m model) View() string {
 		// strings.Repeat("\n", height) +
 		// "\n" +
 		// m.spinner.View() +
-		"\n  " + helpView
+		"\n" + helpView
 }
