@@ -3,7 +3,6 @@ package main
 import (
 	"log"
 	"os"
-	// "strconv"
 
 	"github.com/charmbracelet/bubbles/help"
 	"github.com/charmbracelet/bubbles/key"
@@ -100,9 +99,18 @@ func (m model) Update(message tea.Msg) (tea.Model, tea.Cmd) {
 				m.help.ShortHelpView([]key.Binding{m.keys.Enter, m.keys.Quit})
 				return m, m.textinput.Focus()
 			case key.Matches(msg, m.keys.Up):
+				// check if trying to go beyond start of list
+				if m.list.Cursor() == 0 {
+					// TODO: fetch previous here
+				}
 				m.list.CursorUp()
 			case key.Matches(msg, m.keys.Down):
+				// check if trying to go beyond end of list
+				if m.list.Cursor() == len(m.list.Items())-1 {
+					// TODO: fetch next here
+				}
 				m.list.CursorDown()
+
 			case key.Matches(msg, m.keys.Help):
 				m.help.ShowAll = !m.help.ShowAll
 
@@ -116,14 +124,18 @@ func (m model) Update(message tea.Msg) (tea.Model, tea.Cmd) {
 		}
 
 	case fetchMsg:
+		// m.text = msg.debugMsg
+		m.text += msg.debugMsg
+
 		return m, tea.Batch(
 			m.list.SetItems(msg.list),
-			fetchPost(m.client),
 		)
 
 	case newMsg:
 		m.textinput.SetValue("")
 		m.text = msg.text
+
+		return m, fetchPost(m.client)
 	}
 
 	m.textinput, cmd = m.textinput.Update(message)
@@ -138,7 +150,7 @@ func (m model) View() string {
 		"\n" +
 		" " + m.textinput.View() +
 		"\n\n" + m.list.View() +
-		// fmt.Sprintf("\n\n%v", m.text) +
+		// "\n" + m.text + "\n" +
 		// strings.Repeat("\n", height) +
 		// "\n" +
 		// m.spinner.View() +

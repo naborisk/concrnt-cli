@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"log"
 	"os"
+	// "strconv"
 	"strings"
 	"time"
 
@@ -71,11 +72,14 @@ func fetchPost(client *resty.Client) tea.Cmd {
 	return func() tea.Msg {
 		timeline := strings.Split(os.Getenv("TIMELINES"), ",")[0]
 
+		// until := time.Now().Unix()
+
 		resp, err := client.R().Get("/timelines/recent?timelines=" + timeline)
+		// resp, err := client.R().Get("/timelines/range?timelines=" + timeline + "&until=" + strconv.Itoa(int(until)))
 
 		if err != nil {
 			return fetchMsg{
-				text: err.Error(),
+				debugMsg: err.Error(),
 			}
 		}
 
@@ -87,7 +91,7 @@ func fetchPost(client *resty.Client) tea.Cmd {
 
 		if err != nil {
 			return fetchMsg{
-				text: err.Error(),
+				debugMsg: err.Error(),
 			}
 		}
 
@@ -101,7 +105,7 @@ func fetchPost(client *resty.Client) tea.Cmd {
 
 			if err != nil {
 				return fetchMsg{
-					text: err.Error(),
+					debugMsg: err.Error(),
 				}
 			}
 
@@ -111,7 +115,7 @@ func fetchPost(client *resty.Client) tea.Cmd {
 
 			if err != nil {
 				return fetchMsg{
-					text: err.Error(),
+					debugMsg: err.Error(),
 				}
 			}
 
@@ -125,7 +129,7 @@ func fetchPost(client *resty.Client) tea.Cmd {
 
 			if err != nil {
 				return fetchMsg{
-					text: err.Error(),
+					debugMsg: err.Error(),
 				}
 			}
 
@@ -142,7 +146,7 @@ func fetchPost(client *resty.Client) tea.Cmd {
 
 				if err != nil {
 					return fetchMsg{
-						text: err.Error(),
+						debugMsg: err.Error(),
 					}
 				}
 
@@ -156,7 +160,7 @@ func fetchPost(client *resty.Client) tea.Cmd {
 
 				if err != nil {
 					return fetchMsg{
-						text: err.Error(),
+						debugMsg: err.Error(),
 					}
 				}
 
@@ -171,6 +175,7 @@ func fetchPost(client *resty.Client) tea.Cmd {
 
 		return fetchMsg{
 			list: listToReturn,
+			// debugMsg: strconv.Itoa(int(until)),
 		}
 	}
 }

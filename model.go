@@ -40,8 +40,8 @@ type WindowSize struct {
 }
 
 type fetchMsg struct {
-	text string
-	list []list.Item
+	debugMsg string
+	list     []list.Item
 }
 
 type newMsg struct {
