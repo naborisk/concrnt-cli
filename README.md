@@ -12,3 +12,4 @@ The configuration is stored in `.env` file. Filling out the `.env` file is requi
 - `PRIVATE_KEY`: Your Concrnt master private key or subkey
 - `CKID`: Your Concrnt CKID (in case of using a subkey)
 - `TIMELINES`: The timelines to post to. Separated by commas. The fetch function will only fetch from the first timeline for now.
+- `BASE_URL`: The base URL of the Concrnt server, e.g. `https://your-domain.com/api/v1`
