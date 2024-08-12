@@ -3,7 +3,7 @@ A command line interface client for the [concrnt](https://github.com/concrnt) so
 
 <img src="./concrnt-cli.gif" width="600">
 
-# Running
+## Running
 Go is needed to run this program. You can download it [here](https://golang.org/dl/) or install it via your package manager.
 
 ## Configuration
