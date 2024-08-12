@@ -11,4 +11,4 @@ The configuration is stored in `.env` file. Filling out the `.env` file is requi
 - `CCID`: Your Concrnt CCID (public key)
 - `PRIVATE_KEY`: Your Concrnt master private key or subkey
 - `CKID`: Your Concrnt CKID (in case of using a subkey)
-- `TIMELINES`: The timelines to posts to. Separated by commas. The fetch function will only fetch from the first timeline for now.
+- `TIMELINES`: The timelines to post to. Separated by commas. The fetch function will only fetch from the first timeline for now.
