@@ -133,6 +133,7 @@ func fetchPost(client *resty.Client) tea.Cmd {
 				}
 			}
 
+			// fetch username
 			if users[document.Signer] == "" && document.Signer != "" {
 				resp, err := client.R().Get("/profile/" + document.Signer + "/world.concrnt.p")
 

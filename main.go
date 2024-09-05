@@ -31,10 +31,11 @@ func InitModel() model {
 
 	client := resty.New()
 	client.SetBaseURL(os.Getenv("BASE_URL"))
+	h := help.New()
 
 	return model{
 		client:    client,
-		help:      help.New(),
+		help:      h,
 		keys:      keys,
 		textinput: ti,
 		list:      list,
@@ -118,7 +119,7 @@ func (m model) Update(message tea.Msg) (tea.Model, tea.Cmd) {
 					// 3 is the height of draft 4 is the height of help 1 is bottom padding
 					m.list.SetSize(m.windowSize.width, m.windowSize.height-3-4-1)
 				} else {
-					m.list.SetSize(m.windowSize.height, m.windowSize.height-3-1-1)
+					m.list.SetSize(m.windowSize.width, m.windowSize.height-3-1-1)
 				}
 			}
 		}
